@@ -1,0 +1,52 @@
+{
+  "name": "dynamic-json-viewer",
+  "widgetName": "DynamicJsonViewer",
+  "version": "1.0.0",
+  "description": "A Mendix pluggable widget that renders fully dynamic JSON data with expand/collapse, search, and theme support",
+  "copyright": "2024",
+  "author": "Your Name",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-repo/dynamic-json-viewer"
+  },
+  "config": {
+    "projectPath": "../MendixApp/",
+    "mendixHost": "http://localhost:8080",
+    "developmentPort": 3000
+  },
+  "marketplace": {
+    "minimumMXVersion": "9.6.0",
+    "appNumber": 0,
+    "appName": "DynamicJsonViewer"
+  },
+  "packagePath": "com.mendix.widget.custom",
+  "scripts": {
+    "start": "pluggable-widgets-tools start:server",
+    "dev": "pluggable-widgets-tools start:web",
+    "build": "pluggable-widgets-tools build:web",
+    "lint": "pluggable-widgets-tools lint",
+    "lint:fix": "pluggable-widgets-tools lint:fix",
+    "test": "pluggable-widgets-tools test:unit:web",
+    "release": "pluggable-widgets-tools release:web"
+  },
+  "devDependencies": {
+    "@mendix/pluggable-widgets-tools": "^10.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "classnames": "^2.3.2"
+  },
+  "overrides": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.0"
+  },
+  "resolutions": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.0"
+  }
+}

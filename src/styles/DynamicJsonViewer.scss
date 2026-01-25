@@ -1,0 +1,1204 @@
+/**
+ * Dynamic JSON Viewer Widget Styles
+ * Supports light and dark themes with clean visual hierarchy
+ */
+
+// ==========================================
+// Variables & Theme Definitions
+// ==========================================
+
+// Light theme colors
+$light-bg: #ffffff;
+$light-bg-secondary: #f8f9fa;
+$light-bg-hover: #f0f1f3;
+$light-border: #e1e4e8;
+$light-text: #24292f;
+$light-text-secondary: #57606a;
+$light-text-muted: #8b949e;
+
+// Light theme syntax colors
+$light-key: #0550ae;
+$light-string: #0a3069;
+$light-number: #0550ae;
+$light-boolean: #cf222e;
+$light-null: #8250df;
+$light-date: #6639ba;
+$light-url: #0969da;
+
+// Dark theme colors
+$dark-bg: #0d1117;
+$dark-bg-secondary: #161b22;
+$dark-bg-hover: #21262d;
+$dark-border: #30363d;
+$dark-text: #c9d1d9;
+$dark-text-secondary: #8b949e;
+$dark-text-muted: #6e7681;
+
+// Dark theme syntax colors
+$dark-key: #79c0ff;
+$dark-string: #a5d6ff;
+$dark-number: #79c0ff;
+$dark-boolean: #ff7b72;
+$dark-null: #d2a8ff;
+$dark-date: #d2a8ff;
+$dark-url: #58a6ff;
+
+// Shared variables
+$border-radius: 6px;
+$border-radius-sm: 4px;
+$transition-fast: 0.15s ease;
+$transition-normal: 0.2s ease;
+$font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+// ==========================================
+// Base Container
+// ==========================================
+
+.djv-container {
+    font-family: $font-mono;
+    font-size: 13px;
+    line-height: 1.5;
+    border-radius: $border-radius;
+    border: 1px solid var(--djv-border);
+    background-color: var(--djv-bg);
+    color: var(--djv-text);
+    overflow: hidden;
+
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+}
+
+// ==========================================
+// Theme Variables
+// ==========================================
+
+.djv-theme-light {
+    --djv-bg: #{$light-bg};
+    --djv-bg-secondary: #{$light-bg-secondary};
+    --djv-bg-hover: #{$light-bg-hover};
+    --djv-border: #{$light-border};
+    --djv-text: #{$light-text};
+    --djv-text-secondary: #{$light-text-secondary};
+    --djv-text-muted: #{$light-text-muted};
+    --djv-key: #{$light-key};
+    --djv-string: #{$light-string};
+    --djv-number: #{$light-number};
+    --djv-boolean: #{$light-boolean};
+    --djv-null: #{$light-null};
+    --djv-date: #{$light-date};
+    --djv-url: #{$light-url};
+    --djv-highlight-bg: #fff8c5;
+    --djv-highlight-border: #d4a72c;
+    --djv-focus-ring: rgba(9, 105, 218, 0.3);
+    --djv-scrollbar-thumb: #c1c4c9;
+    --djv-scrollbar-track: #f6f8fa;
+}
+
+.djv-theme-dark {
+    --djv-bg: #{$dark-bg};
+    --djv-bg-secondary: #{$dark-bg-secondary};
+    --djv-bg-hover: #{$dark-bg-hover};
+    --djv-border: #{$dark-border};
+    --djv-text: #{$dark-text};
+    --djv-text-secondary: #{$dark-text-secondary};
+    --djv-text-muted: #{$dark-text-muted};
+    --djv-key: #{$dark-key};
+    --djv-string: #{$dark-string};
+    --djv-number: #{$dark-number};
+    --djv-boolean: #{$dark-boolean};
+    --djv-null: #{$dark-null};
+    --djv-date: #{$dark-date};
+    --djv-url: #{$dark-url};
+    --djv-highlight-bg: rgba(187, 128, 9, 0.15);
+    --djv-highlight-border: #bb8009;
+    --djv-focus-ring: rgba(88, 166, 255, 0.3);
+    --djv-scrollbar-thumb: #484f58;
+    --djv-scrollbar-track: #21262d;
+}
+
+// ==========================================
+// Scrollbar Styling
+// ==========================================
+
+.djv-container {
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--djv-scrollbar-track);
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--djv-scrollbar-thumb);
+        border-radius: 4px;
+
+        &:hover {
+            background: var(--djv-text-muted);
+        }
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--djv-scrollbar-thumb) var(--djv-scrollbar-track);
+}
+
+// ==========================================
+// Toolbar
+// ==========================================
+
+.djv-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 12px;
+    background-color: var(--djv-bg-secondary);
+    border-bottom: 1px solid var(--djv-border);
+    flex-wrap: wrap;
+
+    .djv-toolbar-left {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .djv-toolbar-right {
+        display: flex;
+        gap: 8px;
+    }
+
+    .djv-toolbar-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        background: var(--djv-bg);
+        border: 1px solid var(--djv-border);
+        border-radius: $border-radius-sm;
+        color: var(--djv-text-secondary);
+        font-size: 12px;
+        cursor: pointer;
+        transition: all $transition-fast;
+
+        &:hover {
+            background: var(--djv-bg-hover);
+            color: var(--djv-text);
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px var(--djv-focus-ring);
+        }
+
+        .djv-icon {
+            width: 14px;
+            height: 14px;
+        }
+
+        .djv-btn-text {
+            @media (max-width: 480px) {
+                display: none;
+            }
+        }
+    }
+}
+
+// ==========================================
+// Search Box
+// ==========================================
+
+.djv-search-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    max-width: 320px;
+
+    .djv-search-input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .djv-search-icon {
+            position: absolute;
+            left: 10px;
+            width: 14px;
+            height: 14px;
+            color: var(--djv-text-muted);
+            pointer-events: none;
+        }
+
+        .djv-search-input {
+            width: 100%;
+            padding: 6px 30px 6px 32px;
+            border: 1px solid var(--djv-border);
+            border-radius: $border-radius-sm;
+            background: var(--djv-bg);
+            color: var(--djv-text);
+            font-family: inherit;
+            font-size: 12px;
+
+            &::placeholder {
+                color: var(--djv-text-muted);
+            }
+
+            &:focus {
+                outline: none;
+                border-color: var(--djv-key);
+                box-shadow: 0 0 0 3px var(--djv-focus-ring);
+            }
+        }
+
+        .djv-search-clear {
+            position: absolute;
+            right: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            background: transparent;
+            border: none;
+            border-radius: 50%;
+            color: var(--djv-text-muted);
+            cursor: pointer;
+
+            &:hover {
+                background: var(--djv-bg-hover);
+                color: var(--djv-text);
+            }
+
+            .djv-icon {
+                width: 12px;
+                height: 12px;
+            }
+        }
+    }
+
+    .djv-search-results {
+        font-size: 11px;
+        color: var(--djv-text-secondary);
+
+        &.djv-no-results {
+            color: var(--djv-boolean);
+        }
+    }
+}
+
+// ==========================================
+// Content Area
+// ==========================================
+
+.djv-content {
+    padding: 12px;
+    overflow-x: auto;
+}
+
+.djv-root-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--djv-text);
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--djv-border);
+}
+
+// ==========================================
+// JSON Entries
+// ==========================================
+
+.djv-entry {
+    margin: 2px 0;
+}
+
+.djv-expandable-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 4px;
+    margin: -2px -4px;
+    border-radius: $border-radius-sm;
+    cursor: pointer;
+    transition: background-color $transition-fast;
+
+    &:hover {
+        background-color: var(--djv-bg-hover);
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--djv-focus-ring);
+    }
+
+    .djv-expand-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        color: var(--djv-text-muted);
+        transition: transform $transition-fast;
+
+        .djv-chevron {
+            width: 12px;
+            height: 12px;
+        }
+    }
+}
+
+// ==========================================
+// Keys and Values
+// ==========================================
+
+.djv-key {
+    color: var(--djv-key);
+    font-weight: 500;
+
+    &.djv-key-match {
+        background-color: var(--djv-highlight-bg);
+        border-radius: 2px;
+        padding: 0 2px;
+    }
+}
+
+.djv-array-index {
+    color: var(--djv-text-muted);
+    font-size: 0.9em;
+    margin-right: 4px;
+}
+
+.djv-separator {
+    color: var(--djv-text-muted);
+    margin: 0 4px;
+}
+
+.djv-type-indicator {
+    color: var(--djv-text-muted);
+    font-weight: 600;
+}
+
+.djv-item-count {
+    font-size: 0.85em;
+    color: var(--djv-text-muted);
+    margin-left: 8px;
+    font-style: italic;
+}
+
+.djv-bracket {
+    color: var(--djv-text-muted);
+
+    &.djv-bracket-close {
+        display: block;
+    }
+}
+
+// ==========================================
+// Primitive Values
+// ==========================================
+
+.djv-primitive {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    &.djv-copyable {
+        cursor: pointer;
+
+        &:hover {
+            .djv-copy-btn {
+                opacity: 1;
+            }
+        }
+    }
+
+    &.djv-match .djv-value-text {
+        background-color: var(--djv-highlight-bg);
+        border-radius: 2px;
+        padding: 0 2px;
+    }
+}
+
+.djv-value-text {
+    word-break: break-word;
+}
+
+// Value type colors
+.djv-type-string .djv-value-text {
+    color: var(--djv-string);
+
+    &::before, &::after {
+        content: '"';
+        color: var(--djv-text-muted);
+    }
+}
+
+.djv-type-number .djv-value-text {
+    color: var(--djv-number);
+}
+
+.djv-type-boolean .djv-value-text {
+    color: var(--djv-boolean);
+    font-weight: 600;
+}
+
+.djv-type-null .djv-value-text {
+    color: var(--djv-null);
+    font-style: italic;
+}
+
+.djv-type-date .djv-value-text {
+    color: var(--djv-date);
+}
+
+.djv-type-url .djv-value-text,
+.djv-type-email .djv-value-text {
+    color: var(--djv-url);
+    text-decoration: underline;
+}
+
+// ==========================================
+// Data Type Badges
+// ==========================================
+
+.djv-type-badge {
+    font-size: 9px;
+    padding: 1px 4px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: var(--djv-bg-secondary);
+    color: var(--djv-text-muted);
+    border: 1px solid var(--djv-border);
+
+    &.djv-badge-string { color: var(--djv-string); }
+    &.djv-badge-number { color: var(--djv-number); }
+    &.djv-badge-boolean { color: var(--djv-boolean); }
+    &.djv-badge-null { color: var(--djv-null); }
+    &.djv-badge-date { color: var(--djv-date); }
+    &.djv-badge-url, &.djv-badge-email { color: var(--djv-url); }
+}
+
+// ==========================================
+// Copy Button
+// ==========================================
+
+.djv-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: $border-radius-sm;
+    color: var(--djv-text-muted);
+    cursor: pointer;
+    opacity: 0;
+    transition: all $transition-fast;
+
+    &:hover {
+        background: var(--djv-bg-hover);
+        color: var(--djv-text);
+    }
+
+    &.djv-copied {
+        opacity: 1;
+        color: #2da44e;
+    }
+
+    .djv-icon {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+.djv-expand-text-btn {
+    font-size: 11px;
+    padding: 0 6px;
+    background: var(--djv-bg-secondary);
+    border: 1px solid var(--djv-border);
+    border-radius: $border-radius-sm;
+    color: var(--djv-text-secondary);
+    cursor: pointer;
+
+    &:hover {
+        background: var(--djv-bg-hover);
+        color: var(--djv-text);
+    }
+}
+
+// ==========================================
+// Search Highlighting
+// ==========================================
+
+.djv-highlight {
+    background-color: var(--djv-highlight-bg);
+    border-bottom: 2px solid var(--djv-highlight-border);
+    border-radius: 2px;
+    padding: 0 1px;
+}
+
+// ==========================================
+// Arrays
+// ==========================================
+
+.djv-primitive-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .djv-primitive-list-item {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        padding: 2px 0;
+
+        &::before {
+            content: "•";
+            color: var(--djv-text-muted);
+        }
+    }
+}
+
+.djv-mixed-array {
+    margin-left: 0;
+}
+
+// ==========================================
+// Table View for Arrays of Objects
+// ==========================================
+
+.djv-table-wrapper {
+    overflow-x: auto;
+    margin: 8px 0;
+    border: 1px solid var(--djv-border);
+    border-radius: $border-radius-sm;
+}
+
+.djv-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+
+    th, td {
+        padding: 8px 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--djv-border);
+        vertical-align: top;
+    }
+
+    th {
+        background: var(--djv-bg-secondary);
+        font-weight: 600;
+        color: var(--djv-text);
+        white-space: nowrap;
+        position: sticky;
+        top: 0;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    tr:hover td {
+        background: var(--djv-bg-hover);
+    }
+
+    .djv-table-index {
+        color: var(--djv-text-muted);
+        font-size: 11px;
+        text-align: center;
+        width: 40px;
+        min-width: 40px;
+        background: var(--djv-bg-secondary);
+    }
+
+    .djv-cell-complex {
+        padding: 4px 8px;
+
+        .djv-entry {
+            margin: 0;
+        }
+
+        .djv-expandable-header {
+            font-size: 11px;
+        }
+    }
+}
+
+// ==========================================
+// Pagination
+// ==========================================
+
+.djv-pagination-wrapper {
+    margin-bottom: 8px;
+}
+
+.djv-pagination {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--djv-text-secondary);
+
+    .djv-pagination-info {
+        white-space: nowrap;
+    }
+
+    .djv-pagination-controls {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .djv-page-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        background: var(--djv-bg);
+        border: 1px solid var(--djv-border);
+        border-radius: $border-radius-sm;
+        color: var(--djv-text-secondary);
+        cursor: pointer;
+        transition: all $transition-fast;
+
+        &:hover:not(:disabled) {
+            background: var(--djv-bg-hover);
+            color: var(--djv-text);
+        }
+
+        &:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .djv-icon {
+            width: 14px;
+            height: 14px;
+        }
+    }
+
+    .djv-page-numbers {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+    }
+
+    .djv-page-number {
+        min-width: 28px;
+        height: 28px;
+        padding: 0 6px;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: $border-radius-sm;
+        color: var(--djv-text-secondary);
+        font-size: 12px;
+        cursor: pointer;
+        transition: all $transition-fast;
+
+        &:hover {
+            background: var(--djv-bg-hover);
+            color: var(--djv-text);
+        }
+
+        &.djv-page-active {
+            background: var(--djv-key);
+            color: white;
+            border-color: var(--djv-key);
+        }
+    }
+
+    .djv-page-ellipsis {
+        padding: 0 4px;
+        color: var(--djv-text-muted);
+    }
+}
+
+// ==========================================
+// Error State
+// ==========================================
+
+.djv-error {
+    .djv-error-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 24px;
+        text-align: center;
+    }
+
+    .djv-error-icon-svg {
+        width: 48px;
+        height: 48px;
+        color: #cf222e;
+    }
+
+    .djv-error-message {
+        font-size: 14px;
+        color: var(--djv-text);
+    }
+
+    .djv-raw-content {
+        width: 100%;
+        max-height: 200px;
+        overflow: auto;
+        background: var(--djv-bg-secondary);
+        border: 1px solid var(--djv-border);
+        border-radius: $border-radius-sm;
+        padding: 12px;
+        text-align: left;
+
+        pre {
+            margin: 0;
+            font-size: 11px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            color: var(--djv-text-secondary);
+        }
+    }
+}
+
+// ==========================================
+// Empty State
+// ==========================================
+
+.djv-empty {
+    .djv-empty-content {
+        padding: 24px;
+        text-align: center;
+    }
+
+    .djv-null-value {
+        color: var(--djv-null);
+        font-style: italic;
+    }
+}
+
+// ==========================================
+// Icons
+// ==========================================
+
+.djv-icon {
+    flex-shrink: 0;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.djv-icon-success {
+    color: #2da44e;
+}
+
+// ==========================================
+// Depth-based styling for visual hierarchy
+// ==========================================
+
+@for $i from 0 through 5 {
+    .djv-depth-#{$i} {
+        > .djv-expandable-header {
+            @if $i == 0 {
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+// Alternating background for deeply nested items
+.djv-entry.djv-depth-2,
+.djv-entry.djv-depth-4 {
+    > .djv-object-content,
+    > .djv-array-content {
+        background: var(--djv-bg-secondary);
+        margin: 4px 0 4px 8px;
+        padding: 4px 8px;
+        border-radius: $border-radius-sm;
+        border-left: 2px solid var(--djv-border);
+    }
+}
+
+// ==========================================
+// Responsive adjustments
+// ==========================================
+
+@media (max-width: 600px) {
+    .djv-container {
+        font-size: 12px;
+    }
+
+    .djv-toolbar {
+        flex-direction: column;
+        gap: 8px;
+
+        .djv-toolbar-left {
+            width: 100%;
+            min-width: auto;
+        }
+
+        .djv-search-box {
+            max-width: none;
+        }
+
+        .djv-toolbar-right {
+            width: 100%;
+            justify-content: flex-end;
+        }
+    }
+
+    .djv-table {
+        font-size: 11px;
+
+        th, td {
+            padding: 6px 8px;
+        }
+    }
+
+    .djv-pagination {
+        flex-wrap: wrap;
+        font-size: 11px;
+    }
+}
+
+// ==========================================
+// Table View Mode (TableRenderer)
+// ==========================================
+
+.djv-table-view {
+    .djv-content {
+        padding: 0;
+    }
+
+    .djv-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 12px;
+        background: var(--djv-bg-secondary);
+        border-bottom: 1px solid var(--djv-border);
+    }
+
+    .djv-toolbar-left {
+        flex: 1;
+    }
+
+    .djv-toolbar-label {
+        font-weight: 600;
+        color: var(--djv-text);
+    }
+
+    .djv-toolbar-right {
+        display: flex;
+        gap: 8px;
+    }
+}
+
+// View toggle button
+.djv-view-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--djv-bg);
+    border: 1px solid var(--djv-border);
+    border-radius: $border-radius-sm;
+    color: var(--djv-text-secondary);
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover {
+        background: var(--djv-bg-hover);
+        color: var(--djv-text);
+        border-color: var(--djv-text-muted);
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--djv-focus-ring);
+    }
+
+    &.djv-active {
+        background: var(--djv-key);
+        color: white;
+        border-color: var(--djv-key);
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+
+    .djv-icon {
+        width: 14px;
+        height: 14px;
+    }
+
+    .djv-btn-text {
+        @media (max-width: 480px) {
+            display: none;
+        }
+    }
+}
+
+// Table primitive value
+.djv-table-primitive {
+    padding: 12px;
+    text-align: center;
+}
+
+// Empty states
+.djv-empty-object,
+.djv-empty-array {
+    padding: 12px;
+    color: var(--djv-text-muted);
+    font-style: italic;
+    text-align: center;
+}
+
+// Main table styles for TableRenderer
+.djv-table.djv-object-table,
+.djv-table.djv-array-table,
+.djv-table.djv-primitive-array-table,
+.djv-table.djv-mixed-array-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background: var(--djv-bg);
+
+    .djv-th {
+        padding: 10px 14px;
+        text-align: left;
+        background: var(--djv-bg-secondary);
+        color: var(--djv-key);
+        font-weight: 600;
+        border-bottom: 2px solid var(--djv-border);
+        white-space: nowrap;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+
+        &.djv-th-key {
+            width: 30%;
+            min-width: 120px;
+        }
+
+        &.djv-th-value {
+            width: 70%;
+        }
+
+        &.djv-th-index {
+            width: 50px;
+            min-width: 50px;
+            text-align: center;
+            color: var(--djv-text-muted);
+        }
+    }
+
+    .djv-tr {
+        transition: background-color $transition-fast;
+
+        &:hover {
+            background: var(--djv-bg-hover);
+        }
+
+        &:nth-child(even) {
+            background: var(--djv-bg-secondary);
+
+            &:hover {
+                background: var(--djv-bg-hover);
+            }
+        }
+    }
+
+    .djv-td {
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--djv-border);
+        vertical-align: top;
+
+        &.djv-td-key {
+            color: var(--djv-key);
+            font-weight: 500;
+            background: var(--djv-bg-secondary);
+        }
+
+        &.djv-td-index {
+            text-align: center;
+            color: var(--djv-text-muted);
+            font-size: 12px;
+            background: var(--djv-bg-secondary);
+        }
+
+        &.djv-td-value {
+            word-break: break-word;
+        }
+    }
+
+    tbody tr:last-child .djv-td {
+        border-bottom: none;
+    }
+}
+
+// Nested table styling
+.djv-nested-table {
+    margin: -6px -10px;
+
+    .djv-table {
+        border: 1px solid var(--djv-border);
+        border-radius: $border-radius-sm;
+        margin: 4px 0;
+        font-size: 12px;
+
+        .djv-th {
+            padding: 6px 10px;
+            font-size: 11px;
+        }
+
+        .djv-td {
+            padding: 6px 10px;
+        }
+    }
+
+    // Deeper nesting
+    .djv-nested-table {
+        .djv-table {
+            font-size: 11px;
+            background: var(--djv-bg-secondary);
+
+            .djv-th, .djv-td {
+                padding: 4px 8px;
+            }
+        }
+    }
+}
+
+// Value type styling for table cells
+.djv-value {
+    display: inline;
+    word-break: break-word;
+
+    &.djv-copyable {
+        cursor: pointer;
+        padding: 2px 4px;
+        margin: -2px -4px;
+        border-radius: $border-radius-sm;
+        transition: background-color $transition-fast;
+
+        &:hover {
+            background: var(--djv-bg-hover);
+        }
+    }
+
+    &.djv-value-string {
+        color: var(--djv-string);
+    }
+
+    &.djv-value-number {
+        color: var(--djv-number);
+        font-variant-numeric: tabular-nums;
+    }
+
+    &.djv-value-boolean {
+        color: var(--djv-boolean);
+        font-weight: 600;
+    }
+
+    &.djv-value-null {
+        color: var(--djv-null);
+        font-style: italic;
+    }
+
+    &.djv-value-date {
+        color: var(--djv-date);
+    }
+
+    &.djv-value-url,
+    &.djv-value-email {
+        color: var(--djv-url);
+        text-decoration: underline;
+    }
+}
+
+.djv-undefined {
+    color: var(--djv-null);
+    font-style: italic;
+}
+
+// Transposed table styles
+.djv-table.djv-transposed {
+    .djv-th {
+        text-align: center;
+        min-width: 80px;
+    }
+
+    .djv-td {
+        text-align: center;
+    }
+
+    .djv-th-key,
+    .djv-td-key {
+        text-align: left;
+        font-weight: 600;
+        color: var(--djv-key);
+        background: var(--djv-bg-secondary);
+        position: sticky;
+        left: 0;
+        z-index: 1;
+    }
+
+    .djv-th-index {
+        font-weight: 500;
+    }
+}
+
+// Depth-based colors for nested tables
+.djv-depth-1 {
+    .djv-th {
+        background: var(--djv-bg-secondary);
+    }
+}
+
+.djv-depth-2 {
+    .djv-th {
+        background: var(--djv-bg-hover);
+    }
+}
+
+.djv-depth-3,
+.djv-depth-4,
+.djv-depth-5 {
+    .djv-th {
+        background: var(--djv-bg-secondary);
+    }
+}
+
+// Responsive table adjustments
+@media (max-width: 600px) {
+    .djv-table.djv-object-table,
+    .djv-table.djv-array-table,
+    .djv-table.djv-primitive-array-table,
+    .djv-table.djv-mixed-array-table {
+        font-size: 12px;
+
+        .djv-th, .djv-td {
+            padding: 8px 10px;
+        }
+
+        .djv-th.djv-th-key {
+            width: 35%;
+            min-width: 80px;
+        }
+    }
+
+    .djv-nested-table {
+        .djv-table {
+            font-size: 11px;
+        }
+    }
+}

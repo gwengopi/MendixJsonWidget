@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="com.mendix.widget.custom.dynamicjsonviewer.DynamicJsonViewer" pluginWidget="true"
+        needsEntityContext="false" offlineCapable="true" supportedPlatform="Web"
+        xmlns="http://www.mendix.com/widget/1.0/"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+
+    <name>Dynamic JSON Viewer</name>
+    <description>Renders fully dynamic JSON data with recursive visualization, expand/collapse, search, and theme support</description>
+    <icon>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAnVJREFUeNpi/P//PwMlgImBQsACE0A3+f/Pnz9ZWFl/MDIy/mFgZPzPAAQMDP8Z/v35w/D3928GFmZmht+/fjH8+PGDgYGB4f/vP78Y/v75A5IEGfAfHV2+cJlBc+9mBobeJdkMDK9fMojx8TOwsrExsLCy/mdh/s/AyMLGwMzMDNL/n4mJiYGJmYmB6f9/EAMC4Br+//9/8f9/hr/a8ooM4uxMDCK/vzNwg2xmYmBhYOIAsRnBJvMxATUw/mNgYPz/D2QBAzMTE8hChv8gC0F+gvgB5AdmkB9+/vz5noub58v/f/8e//vz9ycIg8T+/fvH8B+o4c+fPwxfv35l+PLlC8PHjx9Bcv/+/v3zH2wByD8gGzCcABLE8e/f34u/fv38/vfP7+9/f/38BsT/f/389ROXH0Da//39cwNkEdiEP79/fwN5ESLw/9/fP9//IeCfv7/gJoD8APIi2AmgMIMFBgz+/v39GxSYQEP/Q0OEkfE/A8Of37//gg35+xdo638oBuphYGRkhtjAxAQPMCYg+xfIIMZ/fxn+/vvL8AdoBCMjEyiqGRlAxoI0g9R//voFJgeOQnBkgQxjYvr3l+E3MJ4hof3vH0ODmibDrFvXGfgZmBg4WFgY/jH9Z/j38wfD358/Gf78+Anx/1+QC8BuQYpEEPj9j6Hx4nmGQmEJBoZnTxk4WViZGJlZGZhB/v8J9v8voBhEz38GsH8QBoI1wKMDFM5AAj+AYAaGkzdvMHRcvsDwC2gyIKYZQBHA8Acch0A/gFPZPxYgDcwFJOcfmH2gNPQfGJ+MYMUMSHEGZANiMdg0kOqfDNQNawQIMAAV7IlxW/7FSAAAAABJRU5ErkJggg==
+    </icon>
+
+    <properties>
+        <!-- Data Properties -->
+        <propertyGroup caption="Data">
+            <property key="jsonString" type="expression" required="true">
+                <caption>JSON String</caption>
+                <description>The JSON data as a string expression. Can be an attribute or a static/dynamic string.</description>
+                <returnType type="String"/>
+            </property>
+            <property key="rootLabel" type="expression" required="false" defaultValue="">
+                <caption>Root Label</caption>
+                <description>Optional label for the root element</description>
+                <returnType type="String"/>
+            </property>
+        </propertyGroup>
+
+        <!-- Display Options -->
+        <propertyGroup caption="Display">
+            <property key="defaultExpanded" type="boolean" defaultValue="true">
+                <caption>Default Expanded</caption>
+                <description>Whether objects and arrays are expanded by default</description>
+            </property>
+            <property key="initialExpandDepth" type="integer" defaultValue="2">
+                <caption>Initial Expand Depth</caption>
+                <description>How many levels deep to expand initially (0 = all collapsed, -1 = all expanded)</description>
+            </property>
+            <property key="showDataTypes" type="boolean" defaultValue="false">
+                <caption>Show Data Types</caption>
+                <description>Display data type badges next to values</description>
+            </property>
+            <property key="showItemCount" type="boolean" defaultValue="true">
+                <caption>Show Item Count</caption>
+                <description>Display item count for arrays and objects</description>
+            </property>
+            <property key="indentSize" type="integer" defaultValue="20">
+                <caption>Indent Size (px)</caption>
+                <description>Indentation size in pixels for nested levels</description>
+            </property>
+        </propertyGroup>
+
+        <!-- Feature Toggles -->
+        <propertyGroup caption="Features">
+            <property key="enableSearch" type="boolean" defaultValue="true">
+                <caption>Enable Search</caption>
+                <description>Show search box to filter JSON content</description>
+            </property>
+            <property key="enableExpandCollapseAll" type="boolean" defaultValue="true">
+                <caption>Expand/Collapse All</caption>
+                <description>Show buttons to expand or collapse all nodes</description>
+            </property>
+            <property key="enableCopyValue" type="boolean" defaultValue="true">
+                <caption>Enable Copy Value</caption>
+                <description>Allow copying values to clipboard on click</description>
+            </property>
+        </propertyGroup>
+
+        <!-- Pagination -->
+        <propertyGroup caption="Pagination">
+            <property key="enablePagination" type="boolean" defaultValue="true">
+                <caption>Enable Pagination</caption>
+                <description>Paginate large arrays</description>
+            </property>
+            <property key="pageSize" type="integer" defaultValue="10">
+                <caption>Page Size</caption>
+                <description>Number of items per page for large arrays</description>
+            </property>
+            <property key="paginationThreshold" type="integer" defaultValue="20">
+                <caption>Pagination Threshold</caption>
+                <description>Minimum array size before pagination kicks in</description>
+            </property>
+        </propertyGroup>
+
+        <!-- Theme & Styling -->
+        <propertyGroup caption="Appearance">
+            <property key="theme" type="enumeration" defaultValue="auto">
+                <caption>Theme</caption>
+                <description>Color theme for the viewer</description>
+                <enumerationValues>
+                    <enumerationValue key="auto">Auto (System)</enumerationValue>
+                    <enumerationValue key="light">Light</enumerationValue>
+                    <enumerationValue key="dark">Dark</enumerationValue>
+                </enumerationValues>
+            </property>
+            <property key="maxHeight" type="string" defaultValue="">
+                <caption>Max Height</caption>
+                <description>Maximum height with scrolling (e.g., '400px', '50vh'). Leave empty for auto height.</description>
+            </property>
+            <property key="customClass" type="string" defaultValue="">
+                <caption>Custom Class</caption>
+                <description>Additional CSS class names for custom styling</description>
+            </property>
+        </propertyGroup>
+
+        <!-- Error Handling -->
+        <propertyGroup caption="Error Handling">
+            <property key="showParseErrors" type="boolean" defaultValue="true">
+                <caption>Show Parse Errors</caption>
+                <description>Display error message when JSON parsing fails</description>
+            </property>
+            <property key="errorMessage" type="string" defaultValue="Invalid JSON data">
+                <caption>Error Message</caption>
+                <description>Custom error message for invalid JSON</description>
+            </property>
+            <property key="showRawOnError" type="boolean" defaultValue="false">
+                <caption>Show Raw on Error</caption>
+                <description>Display raw string when JSON parsing fails</description>
+            </property>
+        </propertyGroup>
+
+        <!-- Events -->
+        <propertyGroup caption="Events">
+            <property key="onValueClick" type="action" required="false">
+                <caption>On Value Click</caption>
+                <description>Action to execute when a value is clicked</description>
+            </property>
+        </propertyGroup>
+    </properties>
+</widget>

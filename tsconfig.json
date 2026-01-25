@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "target": "ES2019",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "lib": ["ES2019", "DOM"],
+        "strict": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true,
+        "declaration": false,
+        "declarationMap": false,
+        "sourceMap": true,
+        "jsx": "react-jsx",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"]
+        },
+        "types": ["node"]
+    },
+    "include": [
+        "src/**/*",
+        "typings/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "**/*.spec.ts",
+        "**/*.test.ts"
+    ]
+}
