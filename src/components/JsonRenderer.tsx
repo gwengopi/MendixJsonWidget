@@ -48,12 +48,22 @@ export function JsonRenderer({
 
     // Render primitive values
     if (isPrimitive(data)) {
+        const handleRowClick = () => {
+            if (onValueClick) {
+                onValueClick();
+            }
+        };
+
         return (
             <div
                 className={classNames("djv-entry", "djv-primitive-entry", {
-                    "djv-array-item": isArrayItem
+                    "djv-array-item": isArrayItem,
+                    "djv-clickable": !!onValueClick
                 })}
                 style={{ paddingLeft: depth * indentSize }}
+                onClick={handleRowClick}
+                role="button"
+                tabIndex={onValueClick ? 0 : -1}
             >
                 {keyName !== undefined && (
                     <Fragment>
@@ -176,6 +186,12 @@ function ObjectRenderer({
     const entries = Object.entries(data);
     const itemCount = entries.length;
 
+    const handleRowClick = () => {
+        if (onValueClick) {
+            onValueClick();
+        }
+    };
+
     return (
         <div
             className={classNames("djv-entry", "djv-object-entry", {
@@ -195,6 +211,8 @@ function ObjectRenderer({
                 isKeyMatch={isKeyMatch}
                 depth={depth}
                 arrayIndex={arrayIndex}
+                onRowClick={handleRowClick}
+                isClickable={!!onValueClick}
             />
 
             {isExpanded && (
@@ -290,6 +308,12 @@ function ArrayRenderer({
         return data.every(item => isPrimitive(item));
     }, [data]);
 
+    const handleRowClick = () => {
+        if (onValueClick) {
+            onValueClick();
+        }
+    };
+
     return (
         <div
             className={classNames("djv-entry", "djv-array-entry", {
@@ -311,6 +335,8 @@ function ArrayRenderer({
                 isKeyMatch={isKeyMatch}
                 depth={depth}
                 arrayIndex={arrayIndex}
+                onRowClick={handleRowClick}
+                isClickable={!!onValueClick}
             />
 
             {isExpanded && (

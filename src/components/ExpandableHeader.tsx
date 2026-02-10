@@ -13,6 +13,8 @@ export interface ExpandableHeaderProps {
     isKeyMatch: boolean;
     depth: number;
     arrayIndex?: number;
+    onRowClick?: () => void;
+    isClickable?: boolean;
 }
 
 export function ExpandableHeader({
@@ -25,12 +27,20 @@ export function ExpandableHeader({
     searchTerm,
     isKeyMatch,
     depth,
-    arrayIndex
+    arrayIndex,
+    onRowClick,
+    isClickable
 }: ExpandableHeaderProps): ReactElement {
     const handleClick = useCallback((e: React.MouseEvent) => {
         e.stopPropagation();
         onToggle();
     }, [onToggle]);
+
+    const handleRowClick = useCallback(() => {
+        if (onRowClick) {
+            onRowClick();
+        }
+    }, [onRowClick]);
 
     const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -74,9 +84,15 @@ export function ExpandableHeader({
                 "djv-expanded": isExpanded,
                 "djv-collapsed": !isExpanded,
                 "djv-key-match": isKeyMatch,
+                "djv-clickable": isClickable,
                 [`djv-depth-${Math.min(depth, 5)}`]: true
             })}
-            onClick={handleClick}
+            onClick={(e) => {
+                handleClick(e);
+                if (isClickable && !e.defaultPrevented) {
+                    handleRowClick();
+                }
+            }}
             onKeyDown={handleKeyDown}
             role="button"
             tabIndex={0}

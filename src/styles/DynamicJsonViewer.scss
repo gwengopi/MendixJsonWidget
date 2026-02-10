@@ -312,6 +312,20 @@ $font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberatio
 
 .djv-entry {
     margin: 2px 0;
+
+    &.djv-clickable {
+        cursor: pointer;
+        transition: background-color $transition-fast;
+
+        &:hover {
+            background-color: var(--djv-bg-hover);
+        }
+
+        &:focus-within {
+            outline: none;
+            box-shadow: inset 0 0 0 2px var(--djv-focus-ring);
+        }
+    }
 }
 
 .djv-expandable-header {
@@ -331,6 +345,14 @@ $font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberatio
     &:focus {
         outline: none;
         box-shadow: 0 0 0 2px var(--djv-focus-ring);
+    }
+
+    &.djv-clickable {
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--djv-bg-hover);
+        }
     }
 
     .djv-expand-icon {
